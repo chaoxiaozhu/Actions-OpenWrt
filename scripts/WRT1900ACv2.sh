@@ -2,8 +2,8 @@
 # Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
 #
 
-# 删除源码自带插件
-#rm -rf package/diy/luci-app-adguardhome
+# 删除插件
+rm -rf package/kenzok8/luci-app-ssr-plus
 
 # 修改openwrt登陆地址,把下面的192.168.10.1修改成你想要的就可以了，其它不要动
 sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
