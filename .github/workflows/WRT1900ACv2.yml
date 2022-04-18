@@ -47,7 +47,7 @@ jobs:
 
     steps:
     - name: 准备结束
-      uses: actions/checkout@master
+      uses: actions/checkout@mmain
 
     - name: 安装编译所需系统
       env:
