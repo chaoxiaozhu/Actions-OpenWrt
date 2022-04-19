@@ -125,7 +125,7 @@ rm -rf feeds/liuran001/open-app-filter
 rm -rf feeds/liuran001/parted
 rm -rf feeds/liuran001/pcap-dnsproxy
 rm -rf feeds/liuran001/pdnsd-alt
-rm -rf rm -rf feeds/liuran001/shadowsocks-rust
+rm -rf feeds/liuran001/shadowsocks-rust
 rm -rf feeds/liuran001/shadowsocksr-libev
 rm -rf feeds/liuran001/simple-obfs
 rm -rf feeds/liuran001/smartdns
