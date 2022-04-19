@@ -2,8 +2,150 @@
 # Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
 #
 
+#删除插件
+rm -rf package/feeds/kenzok8/luci-app-bypass
+rm -rf package/feeds/kenzok8/luci-app-easymesh
+rm -rf package/feeds/kenzok8/luci-app-openclash
+rm -rf package/feeds/kenzok8/luci-app-unblockneteasemusic
+rm -rf package/feeds/kenzok8/luci-app-vssr
+#----------------------------------------------------------
+rm -rf feeds/kenzok8/UnblockNeteaseMusic
+rm -rf feeds/kenzok8/adguardhome
+rm -rf feeds/kenzok8/aliyundrive-webdav
+rm -rf feeds/kenzok8/app-store-ui
+rm -rf feeds/kenzok8/ddnsto
+rm -rf feeds/kenzok8/filebrowser
+rm -rf feeds/kenzok8/gost
+rm -rf feeds/kenzok8/lua-maxminddb
+rm -rf feeds/kenzok8/luci-app-adguardhome
+rm -rf feeds/kenzok8/luci-app-advanced
+rm -rf feeds/kenzok8/luci-app-aliddns
+rm -rf feeds/kenzok8/luci-app-aliyundrive-webdav
+rm -rf feeds/kenzok8/luci-app-argon-config
+rm -rf feeds/kenzok8/luci-app-argonne-config
+rm -rf feeds/kenzok8/luci-app-bypass
+rm -rf feeds/kenzok8/luci-app-clash
+rm -rf feeds/kenzok8/luci-app-ddnsto
+rm -rf feeds/kenzok8/luci-app-diskman
+rm -rf feeds/kenzok8/luci-app-dnsfilter
+rm -rf feeds/kenzok8/luci-app-dockerman
+rm -rf feeds/kenzok8/luci-app-easymesh
+rm -rf feeds/kenzok8/luci-app-eqos
+rm -rf feeds/kenzok8/luci-app-fileassistant
+rm -rf feeds/kenzok8/luci-app-filebrowser
+rm -rf feeds/kenzok8/luci-app-ikoolproxy
+rm -rf feeds/kenzok8/luci-app-ikoolproxy/koolproxy
+rm -rf feeds/kenzok8/luci-app-koolddns
+rm -rf feeds/kenzok8/luci-app-koolproxyR
+rm -rf feeds/kenzok8/luci-app-mosdns
+rm -rf feeds/kenzok8/luci-app-openclash
+# feeds/kenzok8/luci-app-passwall
+rm -rf feeds/kenzok8/luci-app-passwall2
+rm -rf feeds/kenzok8/luci-app-pushbot
+rm -rf feeds/kenzok8/luci-app-serverchan
+# feeds/kenzok8/luci-app-smartdns
+rm -rf feeds/kenzok8/luci-app-ssr-mudb-server
+# feeds/kenzok8/luci-app-ssr-plus
+rm -rf feeds/kenzok8/luci-app-store
+rm -rf feeds/kenzok8/luci-app-unblockneteasemusic
+rm -rf feeds/kenzok8/luci-app-vssr
+rm -rf feeds/kenzok8/luci-theme-argon
+rm -rf feeds/kenzok8/luci-theme-argonne
+rm -rf feeds/kenzok8/luci-theme-atmaterial_new
+rm -rf feeds/kenzok8/luci-theme-ifit
+# feeds/kenzok8/luci-theme-mcat
+rm -rf feeds/kenzok8/luci-theme-neobird
+rm -rf feeds/kenzok8/luci-theme-tomato
+rm -rf feeds/kenzok8/luci-themedog
+rm -rf feeds/kenzok8/microsocks
+rm -rf feeds/kenzok8/mosdns
+rm -rf feeds/kenzok8/naiveproxy
+rm -rf feeds/kenzok8/redsocks2
+rm -rf feeds/kenzok8/smartdns
+rm -rf feeds/kenzok8/tcping
+#----------------------------------------------------------
+rm -rf feeds/liuran001/3ginfo
+rm -rf feeds/liuran001/3proxy
+rm -rf feeds/liuran001/GoQuiet
+rm -rf feeds/liuran001/LingTiGameAcc
+rm -rf feeds/liuran001/adbyby
+rm -rf feeds/liuran001/adguardhome
+rm -rf feeds/liuran001/aliyundrive-webdav
+rm -rf feeds/liuran001/atinout
+rm -rf feeds/liuran001/brook
+rm -rf feeds/liuran001/chinadns
+rm -rf feeds/liuran001/chinadns-ng
+rm -rf feeds/liuran001/ddns-scripts_aliyun
+rm -rf feeds/liuran001/ddns-scripts_dnspod
+rm -rf feeds/liuran001/dns2socks
+rm -rf feeds/liuran001/dnscrypt-proxy
+rm -rf feeds/liuran001/gost
+rm -rf feeds/liuran001/hysteria
+rm -rf feeds/liuran001/ipt2socks
+rm -rf feeds/liuran001/iptvhelper
+rm -rf feeds/liuran001/lua-maxminddb
+rm -rf feeds/liuran001/luci-app-3ginfo
+rm -rf feeds/liuran001/luci-app-LingTiGameAcc
+rm -rf feeds/liuran001/luci-app-UUGameAcc
+rm -rf feeds/liuran001/luci-app-adguardhome
+rm -rf feeds/liuran001/luci-app-aliddns
+rm -rf feeds/liuran001/luci-app-aliyundrive-webdav
+rm -rf feeds/liuran001/luci-app-argon-config
+rm -rf feeds/liuran001/luci-app-atinout
+rm -rf feeds/liuran001/luci-app-bypass
+rm -rf feeds/liuran001/luci-app-chinadns-ng
+rm -rf feeds/liuran001/luci-app-clash
+rm -rf feeds/liuran001/luci-app-diskman/applications/luci-app-diskman
+rm -rf feeds/liuran001/luci-app-dockerman
+rm -rf feeds/liuran001/luci-app-iptvhelper
+rm -rf feeds/liuran001/luci-app-jd-dailybonus
+rm -rf feeds/liuran001/luci-app-koolproxyR
+rm -rf feeds/liuran001/luci-app-modeminfo
+rm -rf feeds/liuran001/luci-app-nodogsplash
+rm -rf feeds/liuran001/luci-app-oaf
+rm -rf feeds/liuran001/luci-app-openclash
+rm -rf feeds/liuran001/luci-app-pcap-dnsproxy
+rm -rf feeds/liuran001/luci-app-serverchan
+rm -rf feeds/liuran001/luci-app-smartdns
+rm -rf feeds/liuran001/luci-app-ssr-plus
+rm -rf feeds/liuran001/luci-app-tcpdump
+rm -rf feeds/liuran001/luci-app-vssr
+rm -rf feeds/liuran001/luci-lib-docker
+rm -rf feeds/liuran001/luci-theme-argon
+rm -rf feeds/liuran001/luci-theme-argon-lr
+rm -rf feeds/liuran001/luci-theme-edge
+rm -rf feeds/liuran001/luci-theme-ifit
+rm -rf feeds/liuran001/luci-theme-infinityfreedom
+rm -rf feeds/liuran001/luci-theme-rosy
+rm -rf feeds/liuran001/microsocks
+rm -rf feeds/liuran001/naiveproxy
+rm -rf feeds/liuran001/node-request
+rm -rf feeds/liuran001/oaf
+rm -rf feeds/liuran001/open-app-filter
+rm -rf feeds/liuran001/parted
+rm -rf feeds/liuran001/pcap-dnsproxy
+rm -rf feeds/liuran001/pdnsd-alt
+rm -rf rm -rf feeds/liuran001/shadowsocks-rust
+rm -rf feeds/liuran001/shadowsocksr-libev
+rm -rf feeds/liuran001/simple-obfs
+rm -rf feeds/liuran001/smartdns
+rm -rf feeds/liuran001/ssocks
+rm -rf feeds/liuran001/tcping
+rm -rf feeds/liuran001/trojan
+rm -rf feeds/liuran001/trojan-go
+rm -rf feeds/liuran001/trojan-plus
+rm -rf feeds/liuran001/udpspeeder
+rm -rf feeds/liuran001/v2ray-core
+rm -rf feeds/liuran001/v2ray-geodata
+rm -rf feeds/liuran001/v2ray-plugin
+rm -rf feeds/liuran001/v2raya
+rm -rf feeds/liuran001/wrtbwmon
+rm -rf feeds/liuran001/xray-core
+rm -rf feeds/liuran001/xray-plugin
+#----------------------------------------------------------
+
 # 删除插件
-rm -rf feeds/kenzok8/luci-app-ssr-plus
+#rm -rf feeds/kenzok8/luci-app-ssr-plus
 #rm -rf package/kenzok8/luci-app-ssr-plus
 
 # 修改openwrt登陆地址,把下面的192.168.10.1修改成你想要的就可以了，其它不要动
