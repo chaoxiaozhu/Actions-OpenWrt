@@ -3,7 +3,7 @@
 #
 
 # 删除插件
-rm -rf package/kenzok8/luci-app-ssr-plus
+#rm -rf feeds/kenzok8/luci-app-ssr-plus
 
 # 修改openwrt登陆地址,把下面的192.168.10.1修改成你想要的就可以了，其它不要动
 sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
