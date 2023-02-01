@@ -42,7 +42,7 @@ env:
 jobs:
   build:
     name: WRT1900ACv2
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
 
     steps:
     - name: 准备结束
