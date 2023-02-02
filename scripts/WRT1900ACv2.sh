@@ -3,7 +3,8 @@
 #
 
 # 删除插件
-#rm -rf feeds/kenzok8/luci-app-ssr-plus
+rm -rf feeds/luci/applications/luci-app-ttyd
+rm -rf feeds/luci/applications/luci-app-nlbwmon
 
 # 空密码
 sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/default-settings/files/zzz-default-settings
@@ -22,8 +23,8 @@ sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_genera
 #sed -i 's/KERNEL_TESTING_PATCHVER:=5.4/KERNEL_TESTING_PATCHVER:=4.19/g' ./target/linux/x86/Makefile
 
 # 修改插件名字（修改名字后不知道会不会对插件功能有影响，自己多测试）
-sed -i 's/"TTYD 终端"/"TTYD"/g' feeds/luci/transplant/luci-app-ttyd/po/zh-cn/terminal.po
-sed -i 's/"带宽监控"/"监控"/g' feeds/luci/applications/luci-app-nlbwmon/po/zh-cn/nlbwmon.po
+#sed -i 's/"TTYD 终端"/"TTYD"/g' feeds/luci/transplant/luci-app-ttyd/po/zh-cn/terminal.po
+#sed -i 's/"带宽监控"/"监控"/g' feeds/luci/applications/luci-app-nlbwmon/po/zh-cn/nlbwmon.po
 sed -i 's/"Turbo ACC 网络加速"/"网络加速"/g' feeds/other/lean/luci-app-turboacc/po/zh-cn/turboacc.po
 
 #sed -i 's/"网络存储"/"存储"/g' package/lean/luci-app-amule/po/zh-cn/amule.po
