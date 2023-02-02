@@ -35,7 +35,6 @@ env:
   CONFIG_FILE: config/WRT1900ACv2.config
   DIY_P1_SH: scripts/diy.sh
   DIY_P2_SH: scripts/WRT1900ACv2.sh
-  UPLOAD_FIRMWARE: true
   UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
 
@@ -88,13 +87,6 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-
-    - name: SSH远程连接服务器配置固件
-      uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-      env:
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
     - name: 下载DL库软件包
       id: package
