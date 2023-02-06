@@ -8,7 +8,6 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-
 # 定时触发开始编译（UTC时间）（5组数为 分-时-日-月-周，简单说明符号《*每》《/隔》《,分别》《-至》）
 #  schedule:
 #    - cron: 30 8 * * *       表示每天编译一次，编译时间为utc时间8点30分开始（中国时间16：30）
@@ -17,14 +16,14 @@
 #    - cron: 30 8 5,15,25 * *     表示每个月按你指定日期编译，现设的是5号-15号-25号编译，可设N天，编译时间为utc时间8点30分开始（中国时间16：30）
 #    - cron: 30 8 1-10 * *      这样表示每个月1至10号的每天编译一次，编译时间为UTC时间8点30分开始（中国时间16：30）
 
-name: 编译 WRT1900ACv2
+name: 编译 OpenWrt
 
 on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
       ssh:
-        description: 'SSH  (true开,false关)'
+        description: 'SSH'
         required: false
         default: 'false'
 
@@ -35,7 +34,7 @@ env:
   CONFIG_FILE: config/WRT1900ACv2.config
   DIY_P1_SH: scripts/diy.sh
   DIY_P2_SH: scripts/WRT1900ACv2.sh
-  UPLOAD_WETRANSFER: true
+  UPLOAD_WETRANSFER: false
   TZ: Asia/Shanghai
 
 jobs:
@@ -116,13 +115,6 @@ jobs:
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
-
-    - name: 上传固件到GitHub空间
-      uses: actions/upload-artifact@main
-      if: steps.organize.outputs.status == 'success' && !cancelled()
-      with:
-        name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: ${{ env.FIRMWARE }}
 
     - name: 上传固件到WeTransfer网盘
       id: wetransfer
