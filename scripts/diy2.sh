@@ -8,6 +8,13 @@ rm -rf feeds/luci/applications/luci-app-nlbwmon
 rm -rf feeds/lienol/luci-app-fileassistant
 rm -rf feeds/luci/applications/luci-app-advanced-reboot
 
+# 复制文件
+mv package/chao/luci-app-ttyd feeds/luci/applications
+mv package/chao/luci-app-nlbwmon feeds/luci/applications
+mv package/chao/luci-app-advanced-reboot feeds/luci/applications
+mv package/chao/luci-app-fileassistant feeds/lienol
+mv package/chao/Makefile feeds/luci/collections/luci
+
 # 空密码
 # sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/default-settings/files/zzz-default-settings
 
