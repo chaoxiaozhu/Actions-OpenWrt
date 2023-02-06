@@ -34,7 +34,7 @@ env:
   CONFIG_FILE: config/WRT1900ACv2.config
   DIY_P1_SH: scripts/diy.sh
   DIY_P2_SH: scripts/WRT1900ACv2.sh
-  UPLOAD_WETRANSFER: false
+  UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
 
 jobs:
