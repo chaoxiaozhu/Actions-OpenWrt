@@ -20,7 +20,7 @@ name: 编译 OpenWrt
 
 on:
   repository_dispatch:
-#  workflow_dispatch:
+  workflow_dispatch:
 #    inputs:
 #      ssh:
 #        description: 'SSH'
