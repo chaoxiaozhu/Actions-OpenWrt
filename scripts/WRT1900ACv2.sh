@@ -5,6 +5,8 @@
 # 删除插件
 rm -rf feeds/luci/applications/luci-app-ttyd
 rm -rf feeds/luci/applications/luci-app-nlbwmon
+rm -rf feeds/lienol/luci-app-fileassistant
+rm -rf feeds/luci/applications/luci-app-advanced-reboot
 
 # 空密码
 # sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/default-settings/files/zzz-default-settings
