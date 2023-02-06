@@ -26,9 +26,9 @@ env:
   REPO_URL: https://github.com/Lienol/openwrt
   REPO_BRANCH: 21.02
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/diy2.config
+  CONFIG_FILE: config/x86_64.config
   DIY_P1_SH: scripts/diy1.sh
-  DIY_P2_SH: scripts/WRT1900ACv2.sh
+  DIY_P2_SH: scripts/diy2.sh
   UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
 
