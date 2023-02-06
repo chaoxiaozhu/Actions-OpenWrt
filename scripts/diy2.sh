@@ -7,6 +7,7 @@ rm -rf feeds/luci/applications/luci-app-ttyd
 rm -rf feeds/luci/applications/luci-app-nlbwmon
 rm -rf feeds/lienol/luci-app-fileassistant
 rm -rf feeds/luci/applications/luci-app-advanced-reboot
+rm -rf feeds/luci/collections/luci/Makefile
 
 # 复制文件
 mv package/chao/luci-app-ttyd feeds/luci/applications
