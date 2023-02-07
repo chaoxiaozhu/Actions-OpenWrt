@@ -8,6 +8,14 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
+# 定时触发开始编译（UTC时间）（5组数为 分-时-日-月-周，简单说明符号《*每》《/隔》《,分别》《-至》）
+#  schedule:
+#    - cron: 30 8 * * *       表示每天编译一次，编译时间为utc时间8点30分开始（中国时间16：30）
+#    - cron: 30 8 * * 1       表示每个星期一编译，编译时间为utc时间8点30分开始（中国时间16：30）
+#    - cron: 30 8 */9 * *      1号开始算，每隔9天编译一次，一个月可以编译4次了，编译时间为utc时间8点30分开始（中国时间16：30）
+#    - cron: 30 8 5,15,25 * *     表示每个月按你指定日期编译，现设的是5号-15号-25号编译，可设N天，编译时间为utc时间8点30分开始（中国时间16：30）
+#    - cron: 30 8 1-10 * *      这样表示每个月1至10号的每天编译一次，编译时间为UTC时间8点30分开始（中国时间16：30）
+
 name: 编译 OpenWrt
 
 on:
@@ -19,9 +27,9 @@ env:
   REPO_BRANCH: 21.02
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: config/x86_64.config
-  DIY_SH: scripts/diy2.sh
+  DIY_SH: diy2.sh
   UPLOAD_FIRMWARE: true
-  UPLOAD_WETRANSFER: false
+  UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
 
 jobs:
@@ -30,10 +38,10 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: 准备结束
+    - name: Checkout
       uses: actions/checkout@main
 
-    - name: 安装编译所需系统
+    - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
@@ -46,20 +54,20 @@ jobs:
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
 
-    - name: 下载固件源码
+    - name: Clone source code
       working-directory: /workdir
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
-    - name: 下载软件包
+    - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
-    - name: 安装软件包
+    - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
-    - name: 加载自定义设置
+    - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
@@ -67,7 +75,7 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_SH
 
-    - name: 下载DL库软件包
+    - name: Download package
       id: package
       run: |
         cd openwrt
@@ -76,7 +84,7 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
-    - name: 编译固件
+    - name: Compile the firmware
       id: compile
       run: |
         cd openwrt
@@ -98,7 +106,7 @@ jobs:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
 
-    - name: 整理固件文件
+    - name: Organize files
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
@@ -114,7 +122,7 @@ jobs:
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
-    - name: 上传固件到WeTransfer网盘
+    - name: Upload firmware to WeTransfer
       id: wetransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
