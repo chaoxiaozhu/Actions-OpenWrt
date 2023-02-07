@@ -4,7 +4,7 @@
 #
 
 # 添加自定义组件
-git clone https://github.com/chaoxiaozhu/chao package/chao
+#git clone https://github.com/chaoxiaozhu/chao package/chao
 #git clone https://github.com/kenzok8/small package/small
 #git clone https://github.com/kenzok8/openwrt-packages package/kenzok8
 #git clone https://github.com/liuran001/openwrt-packages package/liuran001
