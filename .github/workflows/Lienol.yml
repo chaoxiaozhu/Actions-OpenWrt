@@ -29,6 +29,7 @@ env:
   CONFIG_FILE: config/x86_64.config
   DIY_P1_SH: scripts/diy1.sh
   DIY_P2_SH: scripts/diy2.sh
+  UPLOAD_FIRMWARE: true
   UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
 
