@@ -2,14 +2,17 @@
 # Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
 #
 
-# 删除插件
+# 添加组件
+git clone https://github.com/chaoxiaozhu/chao package/chao
+
+# 删除组件
 rm -rf feeds/luci/applications/luci-app-ttyd
 rm -rf feeds/luci/applications/luci-app-nlbwmon
 rm -rf feeds/lienol/luci-app-fileassistant
 rm -rf feeds/luci/applications/luci-app-advanced-reboot
 rm -rf feeds/luci/collections/luci/Makefile
 
-# 复制文件
+# 复制组件
 mv package/chao/luci-app-ttyd feeds/luci/applications
 mv package/chao/luci-app-nlbwmon feeds/luci/applications
 mv package/chao/luci-app-advanced-reboot feeds/luci/applications
