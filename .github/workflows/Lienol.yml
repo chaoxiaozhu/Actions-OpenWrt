@@ -34,7 +34,7 @@ env:
 
 jobs:
   build:
-    name: WRT1900ACv2
+    name: OpenWrt
     runs-on: ubuntu-22.04
 
     steps:
