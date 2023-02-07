@@ -27,7 +27,7 @@ env:
   REPO_BRANCH: 21.02
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: config/x86_64.config
-  DIY_SH: diy2.sh
+  DIY_SH: scripts/diy2.sh
   UPLOAD_FIRMWARE: true
   UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
