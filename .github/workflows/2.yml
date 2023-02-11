@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: 编译 OpenWrt
+name: 编译 2222
 
 on:
   repository_dispatch:
@@ -27,7 +27,7 @@ env:
 
 jobs:
   build:
-    name: x86_64
+    name: 2222
     runs-on: ubuntu-22.04
 
     steps:
