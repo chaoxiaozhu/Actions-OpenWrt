@@ -67,7 +67,7 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_SH
 
-    - name: 下载DL包文件
+    - name: 下载DL包文件1
       id: package
       run: |
         cd openwrt
