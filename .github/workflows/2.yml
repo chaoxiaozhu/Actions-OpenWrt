@@ -31,7 +31,7 @@ jobs:
 
     steps:
     - name: 准备结束
-      uses: actions/checkout@main
+      uses: Mattraks/delete-workflow-runs@main
 
     - name: 初始化环境
       env:
