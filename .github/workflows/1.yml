@@ -1,53 +1,39 @@
 #
+# Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
 #
-# 感谢p3terx大神的一键编译脚本
-# 
-# Copyright (C) 2019 P3TERX <https://p3terx.com>
-# <https://github.com/P3TERX/Actions-OpenWrt.git>
+# This is free software, licensed under the MIT License.
+# See /LICENSE for more information.
 #
-#修改以下代码或者开启触发开关都好，要严格按格式对好,前面有多少空格也要看清楚
+# https://github.com/P3TERX/Actions-OpenWrt
+# Description: Build OpenWrt using GitHub Actions
 #
 
-name: OpenWrt
+name: 编译 OpenWrt345
 
 on:
   repository_dispatch:
-
-#编辑任意指定文件触发开始编译(去掉下面5个#开启,最下面一行是指定修改什么文件就触发编译,我现在是修改diy.config文件触发)
-#  push:
-#    branches:
-#      - master
-#    paths:
-#      - 'diy.config'
-
-
-
-#点☆Star触发开始编译
-  watch:
-#    types: started
-
+  workflow_dispatch:
 
 env:
   REPO_URL: https://github.com/Lienol/openwrt
   REPO_BRANCH: 21.02
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: x86_64.config
-  DIY_OP_SH: diy.sh
+  CONFIG_FILE: config/x86_64.config
+  DIY_SH: scripts/diy.sh
   UPLOAD_FIRMWARE: true
   UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
 
 jobs:
   build:
-    name: 编译 OpenWrt
+    name: x86_64456
     runs-on: ubuntu-22.04
-    if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
-    - name: 准备完毕
+    - name: 检查
       uses: actions/checkout@main
 
-    - name: 开始安装编译所需系统
+    - name: 初始化环境
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
@@ -60,80 +46,85 @@ jobs:
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
 
-    - name: 下载lede源码
+    - name: 克隆源代码
       working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
-    - name: 加载diy.sh跟feeds.conf.default设置
+    - name: 更新插件 & 安装插件
+      working-directory: ./openwrt
       run: |
-        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
-        chmod +x $DIY_OP_SH
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_OP_SH
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
 
-    - name: 下载diy.sh跟feeds.conf.default自定义软件
-      run: cd openwrt && ./scripts/feeds update -a
-
-    - name: 安装自定义软件
-      run: cd openwrt && ./scripts/feeds install -a
-
-    - name: 加载diy.config设置
+    - name: 自定义配置
       run: |
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-
-    - name: 下载软件包
-      id: package
-      run: |
+        chmod +x $DIY_SH
         cd openwrt
-        make defconfig
-        make download -j8
-        find dl -size -1024c -exec ls -l {} \;
+        $GITHUB_WORKSPACE/$DIY_SH
+
+    - name: 下载DL库
+      working-directory: ./openwrt
+      run: |
+        make download -j$(nproc)
         find dl -size -1024c -exec rm -f {} \;
 
-    - name: 开始编译固件
-      id: compile
+    - name: 编译固件
+      working-directory: ./openwrt
       run: |
-        cd openwrt
-        make -j$(nproc) || make -j1 V=s
-        echo "======================="
-        echo "Space usage:"
-        echo "======================="
-        df -h
-        echo "======================="
-        du -h ./ --max-depth=1
-        du -h /mnt/openwrt/ --max-depth=1 || true
+        echo -e "$(($(nproc)+1)) thread compile"
+        make -j$(($(nproc)+1)) || make -j1 V=s
 
-    - name: 检查github储存空间情况
+    - name: 检查空间使用情况
       if: (!cancelled())
       run: df -hT
 
-    - name: 整理固件文件夹
+    - name: 整理文件
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        cd openwrt/bin/targets/*/*
-        mkdir -p ./artifact/firmware
-        mkdir -p ./artifact/package
-        mkdir -p ./artifact/buildinfo
-        rm -rf $(find ./bin/targets/ -type d -name "packages")
-        cp -rf $(find ./bin/targets/ -type f) ./artifact/firmware/
-        cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
-        cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
+        mkdir firmware
+        mv -f openwrt/bin/targets/*/*/{*combined*,*sysupgrade*} ./firmware/ 2>/dev/null || true
+        cp openwrt/.config  ./firmware/${{matrix.target}}.config
+        cp openwrt/build_dir/target-*/linux-*/linux-*/.config ./firmware/${{matrix.target}}_kernel.config
+        cd firmware
+        echo "v${{ env.date2 }}" > version.txt
+        md5=$((md5sum *squashfs-sysupgrade* || md5sum *squashfs-combined-efi*) | awk '{print $1}') 2>/dev/null
+        echo $md5 >> version.txt
+        rename -v "s/^openwrt/${{ env.VERSION }}-openwrt/" * || true
+        rename -v "s/friendlyarm_//" *gz || true
+        echo $md5 >> version.txt
+        echo ${{matrix.target}} >> version.txt     
+        rm -rf sha256sums
+        echo "FIRMWARE=$PWD" >> $GITHUB_ENV
 
-    - name: 上传固件在github空间
+    - name: 上传固件
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: OpenWrt_Lede${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: ${{ env.date3 }}_${{matrix.target}}
         path: ${{ env.FIRMWARE }}
 
-    - name: 上传固件到WeTransfer网盘
+    - name: 上传固件WeTransfer
+      id: wetransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+        echo "url=$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_OUTPUT
+
+    - name: 删除工作流
+      uses: Mattraks/delete-workflow-runs@main
+      with:
+        retain_days: 1
+        keep_minimum_runs: 0
+
+    - name: 删除旧版本
+      uses: dev-drprasad/delete-older-releases@master
+      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+      with:
