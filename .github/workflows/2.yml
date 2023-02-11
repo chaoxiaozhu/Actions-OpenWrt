@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: 编译 2222
+name: 编译 1111111
 
 on:
   repository_dispatch:
@@ -22,16 +22,17 @@ env:
   DIY_SH: scripts/diy.sh
   UPLOAD_FIRMWARE: true
   UPLOAD_WETRANSFER: true
+  UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
 
 jobs:
   build:
-    name: 2222
+    name: 11111111
     runs-on: ubuntu-22.04
 
     steps:
     - name: 准备结束
-      uses: actions/checkout@main
+      uses: actions/checkout@v3
 
     - name: 初始化环境
       env:
@@ -80,18 +81,33 @@ jobs:
       id: compile
       run: |
         cd openwrt
-        echo -e "$(nproc) thread compile"
-        make -j$(nproc) || make -j1 || make -j1 V=s
-        echo "status=success" >> $GITHUB_OUTPUT
+        echo -e "$(($(nproc)+1)) thread compile"
+        make -j$(($(nproc)+1)) || make -j1 V=s
+        echo "status=success" >> $GITHUB_OUTPUT    
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
-        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
-        echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV        
+        echo "date=$(date "+%Y-%m-%d %H.%M")" >> $GITHUB_ENV
+        echo "date1=$(date "+%Y年%m月%d号-%H点%M分")" >> $GITHUB_ENV
+        echo "date2=$(date "+%Y%m%d-%H%M")" >> $GITHUB_ENV
+
+    - name: 检查空间使用情况
+      if: (!cancelled())
+      run: df -hT
 
     - name: 整理文件
-      id: organize
-      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
+      id: organizer
       run: |
+        mkdir config
+        find openwrt/bin/targets/ -name "*config.buildinfo*" | xargs -i mv -f {} config
         cd openwrt/bin/targets/*/*
+        rm -rf packages && mkdir packages
+        find -name "*.buildinfo*" | xargs -i mv -f {} packages
+        find -name "*sha256sums*" | xargs -i mv -f {} packages
+        find -name "*kernel.bin*" | xargs -i mv -f {} packages
+        find -name "*kernel1.bin*" | xargs -i mv -f {} packages
+        find -name "*rootfs*" | xargs -i mv -f {} packages
+        find -name "*.manifest*" | xargs -i mv -f {} packages
+        find -name "*vmlinuz*" | xargs -i mv -f {} packages
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
@@ -111,3 +127,37 @@ jobs:
         ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         echo "url=$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_OUTPUT
+
+    - name: 发布连接
+      id: tag
+      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+      run: |
+        echo "release_tag=$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
+        touch release.txt
+        [ $UPLOAD_WETRANSFER = true ] && echo "🔗 [WeTransfer](${{ steps.wetransfer.outputs.url }})" >> release.txt
+        echo "status=success" >> $GITHUB_OUTPUT
+
+    - name: 发布固件
+      uses: softprops/action-gh-release@master
+      if: steps.tag.outputs.status == 'success' && !cancelled()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.tag.outputs.release_tag }}
+        body_path: release.txt
+        files: ${{ env.FIRMWARE }}/*
+
+    - name: 删除工作流
+      uses: Mattraks/delete-workflow-runs@main
+      with:
+        retain_days: 1
+        keep_minimum_runs: 0
+
+    - name: 删除旧版本
+      uses: dev-drprasad/delete-older-releases@master
+      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+      with:
+        keep_latest: 3
+        delete_tags: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
