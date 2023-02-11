@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: 检查
+    - name: 装备结束
       uses: actions/checkout@main
 
     - name: 初始化环境
