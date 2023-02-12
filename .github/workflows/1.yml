@@ -29,14 +29,11 @@ env:
   CONFIG_FILE: config/x86_64.config
   DIY_SH: scripts/diy.sh
   
-  # 上传固件GitHub
-  UPLOAD_FIRMWARE: true
-  
-  # 上传固件WeTransfer
-  UPLOAD_WETRANSFER: true
-  
-  # 发布固件
-  UPLOAD_RELEASE: false
+  # 开启:true
+  # 关闭:false
+  UPLOAD_FIRMWARE: true  #上传固件GitHub
+  UPLOAD_WETRANSFER: true  #上传固件WeTransfer
+  UPLOAD_RELEASE: false  #发布固件
   TZ: Asia/Shanghai
 
 jobs:
