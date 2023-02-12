@@ -20,8 +20,14 @@ env:
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: config/x86_64.config
   DIY_SH: scripts/diy.sh
+  
+  # 上传固件GitHub
   UPLOAD_FIRMWARE: true
+  
+  # 上传固件WeTransfer
   UPLOAD_WETRANSFER: true
+  
+  # 发布固件
   UPLOAD_RELEASE: false
   TZ: Asia/Shanghai
 
