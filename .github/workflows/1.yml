@@ -28,6 +28,7 @@ env:
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: config/x86_64.config
   DIY_SH: scripts/diy.sh
+  TZ: Asia/Shanghai
 
   # 开启:true
   # 关闭:false
@@ -40,7 +41,6 @@ env:
 
   # 发布固件
   UPLOAD_RELEASE: false
-  TZ: Asia/Shanghai
 
 jobs:
   build:
