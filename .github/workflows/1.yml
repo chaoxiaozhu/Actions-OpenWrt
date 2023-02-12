@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: 编译 1111111
+name: 编译 test
 
 on:
   repository_dispatch:
@@ -20,19 +20,25 @@ env:
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: config/x86_64.config
   DIY_SH: scripts/diy.sh
+  
+  # 上传固件GitHub
   UPLOAD_FIRMWARE: true
+  
+  # 上传固件WeTransfer
   UPLOAD_WETRANSFER: true
-  UPLOAD_RELEASE: true
+  
+  # 发布固件
+  UPLOAD_RELEASE: false
   TZ: Asia/Shanghai
 
 jobs:
   build:
-    name: 11111111
+    name: test
     runs-on: ubuntu-22.04
 
     steps:
     - name: 准备结束
-      uses: actions/checkout@v3
+      uses: actions/checkout@main
 
     - name: 初始化环境
       env:
@@ -98,6 +104,12 @@ jobs:
       run: |
         cd openwrt/bin/targets/*/*
         rm -rf packages
+        rm -rf $(find ./bin/targets/ -type f -name "*.buildinfo")
+        rm -rf $(find ./bin/targets/ -type f -name "*sha256sums")
+        rm -rf $(find ./bin/targets/ -type f -name "*kernel.bin")
+        rm -rf $(find ./bin/targets/ -type f -name "*rootfs*")
+        rm -rf $(find ./bin/targets/ -type f -name "*.manifest*")
+        rm -rf $(find ./bin/targets/ -type f -name "*vmlinuz*")
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
 
