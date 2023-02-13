@@ -32,6 +32,9 @@ env:
   # 开启:true
   # 关闭:false
 
+  # 上传config到GitHub
+  UPLOAD_CONFIG: true
+
   # 上传固件GitHub
   UPLOAD_FIRMWARE: true
 
@@ -128,11 +131,18 @@ jobs:
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
 
+    - name: 上传config到GitHub
+      uses: actions/upload-artifact@main
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_CONFIG == 'true'
+      with:
+        name: config_${{matrix.target}}${{ env.DEVICE_NAME }}_${{ env.date }}
+        path: ./config
+
     - name: 上传固件GitHub
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: OpenWrt${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: OpenWrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}__${{ env.date }}
         path: ${{ env.FIRMWARE }}
 
     - name: 上传固件WeTransfer
