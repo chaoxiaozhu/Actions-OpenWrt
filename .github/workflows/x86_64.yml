@@ -71,7 +71,7 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
-    - name: 安装插件
+    - name: 安装组件
       working-directory: ./openwrt
       run: |
         ./scripts/feeds update -a
