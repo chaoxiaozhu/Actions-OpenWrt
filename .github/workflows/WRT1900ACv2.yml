@@ -8,7 +8,15 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: 编译 test
+# 定时触发开始编译（UTC时间）（5组数为 分-时-日-月-周，简单说明符号《*每》《/隔》《,分别》《-至》）
+#  schedule:
+#    - cron: 30 8 * * *       表示每天编译一次，编译时间为utc时间8点30分开始（中国时间16：30）
+#    - cron: 30 8 * * 1       表示每个星期一编译，编译时间为utc时间8点30分开始（中国时间16：30）
+#    - cron: 30 8 */9 * *      1号开始算，每隔9天编译一次，一个月可以编译4次了，编译时间为utc时间8点30分开始（中国时间16：30）
+#    - cron: 30 8 5,15,25 * *     表示每个月按你指定日期编译，现设的是5号-15号-25号编译，可设N天，编译时间为utc时间8点30分开始（中国时间16：30）
+#    - cron: 30 8 1-10 * *      这样表示每个月1至10号的每天编译一次，编译时间为UTC时间8点30分开始（中国时间16：30）
+
+name: 编译 WRT1900ACv2
 
 on:
   repository_dispatch:
@@ -18,22 +26,25 @@ env:
   REPO_URL: https://github.com/Lienol/openwrt
   REPO_BRANCH: 21.02
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/x86_64.config
+  CONFIG_FILE: config/WRT1900ACv2.config
   DIY_SH: scripts/diy.sh
-  
+  TZ: Asia/Shanghai
+
+  # 开启:true
+  # 关闭:false
+
   # 上传固件GitHub
   UPLOAD_FIRMWARE: true
-  
+
   # 上传固件WeTransfer
   UPLOAD_WETRANSFER: true
-  
+
   # 发布固件
-  UPLOAD_RELEASE: false
-  TZ: Asia/Shanghai
+  UPLOAD_RELEASE: true
 
 jobs:
   build:
-    name: test
+    name: WRT1900ACv2
     runs-on: ubuntu-22.04
 
     steps:
@@ -104,12 +115,6 @@ jobs:
       run: |
         cd openwrt/bin/targets/*/*
         rm -rf packages
-        rm -rf $(find ./bin/targets/ -type f -name "*.buildinfo")
-        rm -rf $(find ./bin/targets/ -type f -name "*sha256sums")
-        rm -rf $(find ./bin/targets/ -type f -name "*kernel.bin")
-        rm -rf $(find ./bin/targets/ -type f -name "*rootfs*")
-        rm -rf $(find ./bin/targets/ -type f -name "*.manifest*")
-        rm -rf $(find ./bin/targets/ -type f -name "*vmlinuz*")
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
 
