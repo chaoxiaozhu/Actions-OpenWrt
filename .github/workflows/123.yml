@@ -18,7 +18,7 @@
 #    - cron: 30 8 1-10 * *      这样表示每个月1至10号的每天编译一次，编译时间为UTC时间8点30分开始（中国时间16：30）
 #
 
-name: Build OpenWrt
+name: Build OpenWrt1
 
 on:
   repository_dispatch:
@@ -45,7 +45,7 @@ env:
 
 jobs:
   build:
-    name: OpenWrt
+    name: OpenWrt1
     runs-on: ubuntu-22.04
 
     steps:
