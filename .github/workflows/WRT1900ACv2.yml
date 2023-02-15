@@ -33,7 +33,7 @@ env:
   # 关闭:false
 
   # 上传config
-  UPLOAD_CONFIG: true
+  UPLOAD_CONFIG: false
 
   # 上传固件GitHub
   UPLOAD_FIRMWARE: true
@@ -42,7 +42,7 @@ env:
   UPLOAD_WETRANSFER: true
 
   # 发布固件
-  UPLOAD_RELEASE: true
+  UPLOAD_RELEASE: false
 
 jobs:
   build:
