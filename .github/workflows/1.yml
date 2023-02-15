@@ -105,7 +105,7 @@ jobs:
         echo "status=success" >> $GITHUB_OUTPUT
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
-        echo "date=$(date "+%Y-%m-%d")" >> $GITHUB_ENV
+        echo "date=$(date "+%Y-%M-%D")" >> $GITHUB_ENV
 
     - name: 检查空间使用情况
       if: (!cancelled())
@@ -155,7 +155,7 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "release_tag=$(date "+%Y-%m-%d")" >> $GITHUB_OUTPUT
+        echo "release_tag=$(date "+%Y-%M-%D")" >> $GITHUB_OUTPUT
         touch release.txt
         [ $UPLOAD_WETRANSFER = true ] && echo "🔗 [WeTransfer](${{ steps.wetransfer.outputs.url }})" >> release.txt
         echo "status=success" >> $GITHUB_OUTPUT
