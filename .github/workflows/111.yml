@@ -18,7 +18,7 @@
 #    - cron: 30 8 1-10 * *      这样表示每个月1至10号的每天编译一次，编译时间为UTC时间8点30分开始（中国时间16：30）
 #
 
-name: x86_64666666
+name: lienol [x86_64]
 
 on:
   repository_dispatch:
@@ -45,7 +45,7 @@ env:
 
 jobs:
   build:
-    name: x86_6466666
+    name: x86_64
     runs-on: ubuntu-22.04
 
     steps:
@@ -153,7 +153,7 @@ jobs:
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: 发布固件
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@master
       if: steps.tag.outputs.status == 'success' && !cancelled()
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -163,13 +163,13 @@ jobs:
         files: ${{ env.FIRMWARE }}/*
 
     - name: 删除工作流
-      uses: GitRML/delete-workflow-runs@main
+      uses: Mattraks/delete-workflow-runs@main
       with:
         retain_days: 1
         keep_minimum_runs: 3
 
     - name: 删除旧固件
-      uses: dev-drprasad/delete-older-releases@v0.1.0
+      uses: dev-drprasad/delete-older-releases@master
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         keep_latest: 3
