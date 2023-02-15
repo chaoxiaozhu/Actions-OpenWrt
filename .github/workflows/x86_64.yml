@@ -108,10 +108,6 @@ jobs:
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
         echo "date=$(date "+%Y-%m-%d")" >> $GITHUB_ENV
 
-    - name: 检查空间使用情况
-      if: (!cancelled())
-      run: df -hT
-
     - name: 整理文件
       id: organize
       run: |
