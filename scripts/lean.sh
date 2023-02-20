@@ -6,18 +6,13 @@
 git clone https://github.com/chaoxiaozhu/chao package/chao
 
 # 删除组件
-rm -rf feeds/luci/applications/luci-app-ttyd
-rm -rf feeds/luci/applications/luci-app-nlbwmon
-rm -rf feeds/lienol/luci-app-fileassistant
-rm -rf feeds/luci/applications/luci-app-advanced-reboot
-rm -rf feeds/luci/collections/luci/Makefile
+rm -rf package/chao/luci-app-ttyd
+rm -rf package/chao/luci-app-nlbwmon
+rm -rf package/chao/Makefile
 
 # 复制组件
-mv package/chao/luci-app-ttyd feeds/luci/applications
-mv package/chao/luci-app-nlbwmon feeds/luci/applications
-mv package/chao/luci-app-advanced-reboot feeds/luci/applications
-mv package/chao/luci-app-fileassistant feeds/lienol
-mv package/chao/Makefile feeds/luci/collections/luci
+#mv package/chao/luci-app-fileassistant feeds/chao
+
 
 # 空密码
 sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/lean/default-settings/files/zzz-default-settings
