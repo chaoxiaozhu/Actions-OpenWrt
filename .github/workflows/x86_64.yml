@@ -74,7 +74,9 @@ jobs:
     - name: 下载源代码
       working-directory: /workdir
       run: |
-        git clone -b $REPO_BRANCH --single-branch $REPO_URL openwrt
+        df -hT $PWD
+        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
     - name: 安装组件
       working-directory: ./openwrt
