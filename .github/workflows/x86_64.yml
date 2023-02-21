@@ -94,7 +94,7 @@ jobs:
         make download -j$(nproc)
         find dl -size -1024c -exec rm -f {} \;
 
-     - name: 编译固件
+    - name: 编译固件
       working-directory: ./openwrt
       run: |
         echo -e "$(($(nproc)+1)) thread compile"
