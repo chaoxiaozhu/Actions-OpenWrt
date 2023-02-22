@@ -115,7 +115,6 @@ jobs:
 
     - name: 整理文件
       id: organize
-      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
         rm -rf config && mkdir config
         cd openwrt/bin/targets/*/*
@@ -140,7 +139,7 @@ jobs:
 
     - name: 上传固件GitHub
       uses: actions/upload-artifact@main
-      if: steps.organize.outputs.status == 'success' && !cancelled()
+      if: steps.organize.outputs.status == 'success' && UPLOAD_FIRMWARE == 'true' && !cancelled()
       with:
         name: lienol_x86-64_${{ env.date }}
         path: ${{ env.FIRMWARE }}
