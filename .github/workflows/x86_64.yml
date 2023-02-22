@@ -41,7 +41,7 @@ env:
   UPLOAD_WETRANSFER: true
 
   # 发布固件
-  UPLOAD_RELEASE: true
+  UPLOAD_RELEASE: false
 
 jobs:
   build:
