@@ -8,9 +8,6 @@ git clone https://github.com/liuran001/openwrt-packages package/liuran001
 git clone https://github.com/xiaorouji/openwrt-passwall package/xiaorouji
 git clone https://github.com/kenzok8/small package/smal
 
-# 空密码
-#sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/default-settings/files/zzz-default-settings
-
 # 修改openwrt登陆地址,把下面的192.168.10.1修改成你想要的就可以了，其它不要动
 sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
 
