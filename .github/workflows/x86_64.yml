@@ -133,14 +133,14 @@ jobs:
 
     - name: 上传config
       uses: actions/upload-artifact@main
-      if: steps.organize.outputs.status == 'success' && env.UPLOAD_CONFIG == 'true' !cancelled()
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_CONFIG == 'true' && !cancelled()
       with:
         name: config_lienol_x86-64
         path: ./config
 
     - name: 上传固件GitHub
       uses: actions/upload-artifact@main
-      if: steps.organize.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' !cancelled()
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       with:
         name: lienol_x86-64_${{ env.date }}
         path: ${{ env.FIRMWARE }}
