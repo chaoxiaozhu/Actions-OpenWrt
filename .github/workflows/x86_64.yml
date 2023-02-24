@@ -133,14 +133,14 @@ jobs:
 
     - name: 上传config
       uses: actions/upload-artifact@main
-      if: steps.organize.outputs.status == 'success' && env.UPLOAD_CONFIG == 'true'
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_CONFIG == 'true' !cancelled()
       with:
         name: config_lienol_x86-64
         path: ./config
 
     - name: 上传固件GitHub
       uses: actions/upload-artifact@main
-      if: steps.organize.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true'
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' !cancelled()
       with:
         name: lienol_x86-64_${{ env.date }}
         path: ${{ env.FIRMWARE }}
@@ -158,7 +158,7 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "release_tag=$(date "+%Y-%m-%d")" >> $GITHUB_OUTPUT
+        echo "release_tag=lienol_x86-64_$(date "+%Y-%m-%d")" >> $GITHUB_OUTPUT
         touch release.txt
         [ $UPLOAD_WETRANSFER = true ] && echo "🔗 [WeTransfer](${{ steps.wetransfer.outputs.url }})" >> release.txt
         echo "status=success" >> $GITHUB_OUTPUT
