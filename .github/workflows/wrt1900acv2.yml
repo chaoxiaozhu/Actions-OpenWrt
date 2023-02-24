@@ -154,7 +154,7 @@ jobs:
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         echo "url=$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_OUTPUT
 
-    - name: 发布信息
+    - name: 发布链接
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
