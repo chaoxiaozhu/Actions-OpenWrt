@@ -2,7 +2,7 @@
 # Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
 #
 
-# 空密码
+# 设置空密码
 #sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/default-settings/files/zzz-default-settings
 
 # 修改openwrt登陆地址,把下面的192.168.10.1修改成你想要的就可以了，其它不要动
@@ -18,7 +18,7 @@ sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_genera
 #sed -i 's/KERNEL_PATCHVER:=5.4/KERNEL_PATCHVER:=4.19/g' ./target/linux/x86/Makefile
 #sed -i 's/KERNEL_TESTING_PATCHVER:=5.4/KERNEL_TESTING_PATCHVER:=4.19/g' ./target/linux/x86/Makefile
 
-# 修改插件名字（修改名字后不知道会不会对插件功能有影响，自己多测试）
+# 修改插件名字（修改名字后不知道会不会对插件功能有影响）
 #sed -i 's/"TTYD 终端"/"TTYD"/g' feeds/luci/transplant/luci-app-ttyd/po/zh-cn/terminal.po
 #sed -i 's/"带宽监控"/"监控"/g' feeds/luci/applications/luci-app-nlbwmon/po/zh-cn/nlbwmon.po
 sed -i 's/"Turbo ACC 网络加速"/"网络加速"/g' feeds/other/lean/luci-app-turboacc/po/zh-cn/turboacc.po
