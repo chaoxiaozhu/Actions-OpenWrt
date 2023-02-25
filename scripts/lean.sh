@@ -3,7 +3,11 @@
 #
 
 # 添加组件
-git clone https://github.com/chaoxiaozhu/chao package/chao
+git clone https://github.com/kenzok8/openwrt-packages package/kenzok8
+git clone https://github.com/liuran001/openwrt-packages package/liuran001
+git clone https://github.com/xiaorouji/openwrt-passwall package/xiaorouji
+git clone https://github.com/kenzok8/small package/smal
+git clone https://github.com/chaoxiaozhu/diy package/diy
 
 # 删除组件
 rm -rf package/chao/luci-app-ttyd
