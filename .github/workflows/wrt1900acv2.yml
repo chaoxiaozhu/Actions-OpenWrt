@@ -35,7 +35,7 @@ env:
   # 关闭:false
 
   # 上传config
-  UPLOAD_CONFIG: false
+  UPLOAD_CONFIG: true
 
   # 上传固件GitHub
   UPLOAD_FIRMWARE: true
@@ -44,7 +44,7 @@ env:
   UPLOAD_WETRANSFER: true
 
   # 发布固件
-  UPLOAD_RELEASE: false
+  UPLOAD_RELEASE: true
 
 jobs:
   build:
@@ -133,14 +133,14 @@ jobs:
 
     - name: 上传config
       uses: actions/upload-artifact@main
-      if: steps.organize.outputs.status == 'success' && env.UPLOAD_CONFIG == 'true'
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_CONFIG == 'true' && !cancelled()
       with:
         name: config_lienol_wrt1900acv2
         path: ./config
 
     - name: 上传固件GitHub
       uses: actions/upload-artifact@main
-      if: steps.organize.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true'
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       with:
         name: lienol_wrt1900acv2_${{ env.date }}
         path: ${{ env.FIRMWARE }}
@@ -158,7 +158,7 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "release_tag=$(date "+%Y-%m-%d")" >> $GITHUB_OUTPUT
+        echo "release_tag=lienol_wrt1900acv2_$(date "+%Y-%m-%d")" >> $GITHUB_OUTPUT
         touch release.txt
         [ $UPLOAD_WETRANSFER = true ] && echo "🔗 [WeTransfer](${{ steps.wetransfer.outputs.url }})" >> release.txt
         echo "status=success" >> $GITHUB_OUTPUT
