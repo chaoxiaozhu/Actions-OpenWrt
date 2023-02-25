@@ -14,9 +14,10 @@ rm -rf package/chao/Makefile
 #mv package/chao/luci-app-fileassistant feeds/chao
 
 
-# 空密码
+# 设置空密码
 sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/lean/default-settings/files/zzz-default-settings
 
+# 修改插件名字
 sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
 sed -i 's/"TTYD 终端"/"TTYD"/g' feeds/luci/applications/luci-app-ttyd/po/zh-cn/terminal.po
 sed -i 's/"带宽监控"/"监控"/g' feeds/luci/applications/luci-app-nlbwmon/po/zh-cn/nlbwmon.po
