@@ -2,21 +2,12 @@
 # Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
 #
 
-# 添加组件
+# 添加自定义组件
 git clone https://github.com/kenzok8/openwrt-packages package/kenzok8
 git clone https://github.com/liuran001/openwrt-packages package/liuran001
 git clone https://github.com/xiaorouji/openwrt-passwall package/xiaorouji
 git clone https://github.com/kenzok8/small package/smal
 git clone https://github.com/chaoxiaozhu/diy package/diy
-
-# 删除组件
-rm -rf package/chao/luci-app-ttyd
-rm -rf package/chao/luci-app-nlbwmon
-rm -rf package/chao/Makefile
-
-# 复制组件
-#mv package/chao/luci-app-fileassistant feeds/chao
-
 
 # 设置空密码
 sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/lean/default-settings/files/zzz-default-settings
