@@ -27,7 +27,7 @@ on:
 env:
   REPO_URL: https://github.com/Lienol/openwrt
   REPO_BRANCH: 21.02
-  CONFIG_FILE: config/wrt1900acv2.config
+  CONFIG_FILE: config/lienol_wrt1900acv2.config
   DIY_SH: scripts/lienol.sh
   TZ: Asia/Shanghai
 
@@ -48,7 +48,7 @@ env:
 
 jobs:
   build:
-    name: wrt1900acv2
+    name: lienol [wrt1900acv2]
     runs-on: ubuntu-22.04
 
     steps:
