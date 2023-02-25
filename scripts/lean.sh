@@ -7,7 +7,6 @@ git clone https://github.com/kenzok8/openwrt-packages package/kenzok8
 git clone https://github.com/liuran001/openwrt-packages package/liuran001
 git clone https://github.com/xiaorouji/openwrt-passwall package/xiaorouji
 git clone https://github.com/kenzok8/small package/smal
-git clone https://github.com/chaoxiaozhu/diy package/diy
 
 # 设置空密码
 sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/lean/default-settings/files/zzz-default-settings
